@@ -1,0 +1,177 @@
+Send Simple Text Email With Java
+
+Using Apache Commons Email SimpleEmail class, users can send simple text email. This article explains how to send a simple text email in Java. 
+
+You create a maven based java project and add the following dependency in the project pom.xml file. 
+
+<dependency>
+     <groupId>org.apache.commons</groupId>
+     <artifactId>commons-email</artifactId>
+     <version>1.4</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-parent</artifactId>
+    <version>38</version>  
+</dependency>
+Write the following code in the "SendSimpleTextEmail" class .
+
+package com.example.email;
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.Email;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
+
+public class SendSimpleTextEmail {
+    public static void main(String[] args)
+    {
+       //Initialize a new email instance
+        Email email=new SimpleEmail();
+        //Set email host
+        email.setHostName("smtp.googlemail.com");
+        //Set email authentication username and password
+        email.setAuthenticator(new DefaultAuthenticator("Selenium Master User Name","Selenium Master User Password"));
+        //Set email host SSL to true
+        email.setSSL(true);
+        try {
+            //Set From email address
+            email.setFrom("
+ services@seleniummaster.com");
+        } catch (EmailException e) {
+            e.printStackTrace();
+        }
+        //Set email Subject line
+        email.setSubject("Java Test Email");
+        try {
+            //Set Email Message
+            email.setMsg("This is a test from Java Email");
+        } catch (EmailException e) {
+            e.printStackTrace();
+        }
+        try {
+            //Set Email To Address
+            email.addTo("
+ services@seleniummaster.com");
+        } catch (EmailException e) {
+            e.printStackTrace();
+        }
+        try {
+            //Send Email
+            email.send();
+        } catch (EmailException e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+Run the above code and check the email. As shown on the email confirmation message below, email is sent to the address successfully. 
+
+from:	
+ services@seleniummaster.com
+to:	
+ services@seleniummaster.com
+date:	Sun, Jun 28, 2015 at 3:32 PM
+subject:	Java Test Email
+mailed-by:	seleniummaster.com
+Email
+Print
+Sending Email With Attachments in Java
+
+Using Apache Commons Email MultiPartEmail class, users can send email with attachment(s). This article explains how to send an email with a picture attachment.  
+
+You create a maven based java project and add the following dependency in the project pom.xml file. 
+
+<dependency>
+     <groupId>org.apache.commons</groupId>
+     <artifactId>commons-email</artifactId>
+     <version>1.4</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-parent</artifactId>
+    <version>38</version>  
+</dependency>
+Write the following code in the "SendEmailWithAttachments" class .
+
+package com.example.email;
+import org.apache.commons.mail.*;
+
+public class SendEmailWithAttachments {
+    public static void main(String[] args)
+    {
+       //Create Attachment
+        EmailAttachment emailAttachment=new EmailAttachment();
+        emailAttachment.setPath("Tulips.jpg");
+        emailAttachment.setDisposition(EmailAttachment.ATTACHMENT);
+        emailAttachment.setDescription("Picture Attachment");
+        emailAttachment.setName("Picture");
+       //Initialize a new multi part email instance
+        MultiPartEmail email=new MultiPartEmail();
+        //Set email host
+        email.setHostName("smtp.googlemail.com");
+        //Set email authentication username and password
+        email.setAuthenticator(new DefaultAuthenticator("Selenium Master User Name","Selenium Master User Password"));
+        //Set email host SSL to true
+        email.setSSL(true);
+        try {
+            //Set From email address
+            email.setFrom("
+ services@seleniummaster.com");
+        } catch (EmailException e) {
+            e.printStackTrace();
+        }
+        //Set email Subject line
+        email.setSubject("Java Test Email");
+        try {
+            //Set Email Message
+            email.setMsg("This is a test from Java Email");
+        } catch (EmailException e) {
+            e.printStackTrace();
+        }
+        try {
+            //Set Email To Address
+            email.addTo("
+ services@seleniummaster.com");
+        } catch (EmailException e) {
+            e.printStackTrace();
+        }
+        //add the attachment
+        try {
+            email.attach(emailAttachment);
+        } catch (EmailException e) {
+            e.printStackTrace();
+        }
+        try {
+            //Send Email
+            email.send();
+        } catch (EmailException e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+Run the above code and check the email. An email with the picture "Tulips.jpg" attachment is sent to the email address. For detailed information, please reference to the Apache Commons Email User Guide page. 
+
+Email
+Print
+Send Email With Apache Commons Email In Java
+
+Apache Commons Email library provides a API for sending email. Using the library, users can send email with different formats. Here are some common classes to use: 
+
+SimpleEmail
+MultiPartEmail
+HtmlEmail
+ImageHtmlEmail
+EmailAttachment
+To use the libary, you need to add the following dependency in your maven based Java project pom.xml file. 
+
+<dependency>
+     <groupId>org.apache.commons</groupId>
+     <artifactId>commons-email</artifactId>
+     <version>1.4</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-parent</artifactId>
+    <version>38</version>  
+</dependency>
